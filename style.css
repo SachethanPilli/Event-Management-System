@@ -1,23 +1,53 @@
-.list{
-}
-#mainlist{
-    padding: 30px;
+#mainlist {
+    padding: 20px;
     display: flex;
     list-style: none;
     color: aliceblue;
+    justify-content: center;
+    /* Centers the list items horizontally */
+    gap: 30px;
+    /* Adds spacing between items */
+    font-size: 20px;
+    /* Increases font size for better visibility */
+    font-weight: bold;
+    margin: 0;
+}
+.context {
+    color: aliceblue;
+      
+}
+#lineone{
+    margin: 50px;
+    font-size: 25px;
+     
+}
+#linetwo{
+    margin: 50px;
+    font-size: 50px;
+    font-weight: bold;
 
 }
 body {
     background-image: url('WhatsApp Image 2025-03-04 at 11.48.05.jpeg');
-    /* Replace with your image path */
     background-size: cover;
-    /* Ensures the image covers the entire screen */
     background-position: center;
-    /* Centers the image */
     background-repeat: no-repeat;
-    /* Prevents tiling */
     height: 100vh;
-    /* Full viewport height */
-    margin: 0;
-    padding: 0;
+
+
+}
+li {
+    padding: 10px 20px;
+    /* Adds padding inside each list item */
+    background: rgba(255, 255, 255, 0.2);
+    /* Light background for visibility */
+    border-radius: 10px;
+    /* Rounded corners */
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+li:hover {
+    background: rgba(255, 255, 255, 0.4);
+    /* Lighten on hover */
 }
