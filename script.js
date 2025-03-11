@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (loginForm) {
         loginForm.addEventListener("submit", function (event) {
-            event.preventDefault(); 
+            event.preventDefault();
 
             let username = document.getElementById("username").value.trim();
             let password = document.getElementById("password").value.trim();
@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
     loadEvents();
 });
 
+// Function to load stored events
 function loadEvents() {
     let eventList = document.getElementById("eventList");
     if (!eventList) return;
@@ -54,7 +55,7 @@ function loadEvents() {
             <h4>${event.name}</h4>
             <p>Date: ${event.date}</p>
             <p>Venue: ${event.venue}</p>
-            <p>Estimated Cost: $${event.cost}</p>
+            <p>Description: ${event.description}</p>
             <button onclick="registerEvent('${event.name}')">Register</button>
             ${sessionStorage.getItem("role") === "Organizer" ? `
                 <button onclick="editEvent(${index})">Edit</button>
@@ -65,6 +66,7 @@ function loadEvents() {
     });
 }
 
+// Function to register for an event
 function registerEvent(eventName) {
     alert(`Successfully registered for ${eventName}!`);
 }
@@ -82,18 +84,19 @@ function addEvent() {
     let eventName = document.getElementById("eventName").value;
     let eventDate = document.getElementById("eventDate").value;
     let venue = document.getElementById("eventVenue").value;
-    let cost = document.getElementById("eventCost").value;
+    let description = document.getElementById("eventDescription").value;
 
-    if (eventName && eventDate && venue && cost) {
-        let events = JSON.parse(sessionStorage.getItem("events")) || [];
-        events.push({ name: eventName, date: eventDate, venue: venue, cost: cost });
-        sessionStorage.setItem("events", JSON.stringify(events));
-        loadEvents();
-        closeEventForm();
-        alert("Event added successfully!");
-    } else {
-        alert("Please enter all event details.");
+    if (!eventName || !eventDate || !venue || !description) {
+        alert("Please fill all fields.");
+        return;
     }
+
+    let events = JSON.parse(sessionStorage.getItem("events")) || [];
+    events.push({ name: eventName, date: eventDate, venue: venue, description: description });
+    sessionStorage.setItem("events", JSON.stringify(events));
+    loadEvents();
+    closeEventForm();
+    alert("Event added successfully!");
 }
 
 function editEvent(index) {
@@ -103,10 +106,10 @@ function editEvent(index) {
     let newName = prompt("Edit Event Name:", event.name);
     let newDate = prompt("Edit Event Date:", event.date);
     let newVenue = prompt("Edit Event Venue:", event.venue);
-    let newCost = prompt("Edit Estimated Cost ($):", event.cost);
+    let newDescription = prompt("Edit Event Description:", event.description);
 
-    if (newName && newDate && newVenue && newCost) {
-        events[index] = { name: newName, date: newDate, venue: newVenue, cost: newCost };
+    if (newName && newDate && newVenue && newDescription) {
+        events[index] = { name: newName, date: newDate, venue: newVenue, description: newDescription };
         sessionStorage.setItem("events", JSON.stringify(events));
         loadEvents();
         alert("Event updated successfully!");
@@ -124,6 +127,25 @@ function deleteEvent(index) {
     }
 }
 
+// Budget Calculation Function
+function calculateBudget() {
+    let totalBudget = parseFloat(document.getElementById("totalBudget").value) || 0;
+    let stage = parseFloat(document.getElementById("stageExpense").value) || 0;
+    let decoration = parseFloat(document.getElementById("decorationExpense").value) || 0;
+    let volunteers = parseFloat(document.getElementById("volunteersExpense").value) || 0;
+    let misc = parseFloat(document.getElementById("miscExpense").value) || 0;
+
+    let totalExpenses = stage + decoration + volunteers + misc;
+    let remaining = totalBudget - totalExpenses;
+
+    let statusText = remaining >= 0 
+        ? `Remaining Budget: ₹${remaining}`
+        : `Over Budget by ₹${Math.abs(remaining)}`;
+
+    document.getElementById("budgetStatus").innerText = statusText;
+}
+
+// Logout Function
 let logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
