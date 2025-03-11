@@ -1,62 +1,58 @@
 body {
     font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    background-color: #1a1a2e;
+    color: white;
     text-align: center;
+    margin: 20px;
 }
 
-.login-container {
-    background: white;
-    padding: 20px;
-    width: 300px;
+.dashboard {
+    max-width: 800px;
     margin: auto;
-    margin-top: 100px;
-    box-shadow: 0px 0px 10px gray;
+    padding: 20px;
+    background: #16213e;
     border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
 }
 
-input {
-    width: 100%;
+h1,
+h2 {
+    color: #ffcc00;
+}
+
+input,
+textarea,
+button {
+    width: 90%;
     padding: 10px;
-    margin: 10px 0;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background: blue;
+    background: #ff5733;
     color: white;
-    border: none;
     cursor: pointer;
 }
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: #f4f4f4;
+
+button:hover {
+    background: #c70039;
 }
 
-header {
+.expense-item {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
-    background: blue;
-    color: white;
+    padding: 5px;
 }
 
-button {
-    padding: 10px;
-    border: none;
-    cursor: pointer;
+.expense-item label {
+    flex: 1;
+    text-align: left;
 }
 
-#eventList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.event {
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px gray;
+.expense-item input {
+    flex: 1;
+    text-align: right;
 }
