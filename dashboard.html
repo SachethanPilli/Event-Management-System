@@ -1,40 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dashboard | Event Manager</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Event Manager Dashboard</h1>
+    <div class="dashboard">
+        <h1>Event Management Dashboard</h1>
+        
+        <div class="event-section">
+            <h2>Event Details</h2>
+            <input type="text" id="eventName" placeholder="Event Name">
+            <input type="datetime-local" id="eventDate">
+            <input type="text" id="eventVenue" placeholder="Venue">
+            <textarea id="eventDescription" placeholder="Event Description"></textarea>
+            <button onclick="addEvent()">Create Event</button>
+        </div>
+
+        <div class="budget-section">
+            <h2>Budget & Expenses</h2>
+            <input type="number" id="totalBudget" placeholder="Total Budget">
+            <div class="expense-item">
+                <label>Stage</label> <input type="number" id="stageExpense" placeholder="₹">
+            </div>
+            <div class="expense-item">
+                <label>Decoration</label> <input type="number" id="decorationExpense" placeholder="₹">
+            </div>
+            <div class="expense-item">
+                <label>Volunteers</label> <input type="number" id="volunteersExpense" placeholder="₹">
+            </div>
+            <div class="expense-item">
+                <label>Miscellaneous</label> <input type="number" id="miscExpense" placeholder="₹">
+            </div>
+            <button onclick="calculateBudget()">Calculate Expenses</button>
+            <p id="budgetStatus"></p>
+        </div>
+
+        <div class="event-list">
+            <h2>Event Listings</h2>
+            <ul id="eventList"></ul>
+        </div>
+        
         <button id="logoutBtn">Logout</button>
-    </header>
-
-    <main>
-        <h2>Welcome, <span id="usernameDisplay"></span> (<span id="roleDisplay"></span>)</h2>
-
-        <section id="eventSection">
-            <h3>Upcoming Events</h3>
-            <div id="eventList"></div>
-        </section>
-
-        <section id="organizerControls" style="display: none;">
-            <h3>Organizer Controls</h3>
-            <button onclick="openEventForm()">Create New Event</button>
-        </section>
-    </main>
-
-    <!-- Event Creation Form -->
-    <div id="eventForm" class="popup" style="display: none;">
-        <h3>Create Event</h3>
-        <input type="text" id="eventName" placeholder="Event Name" required>
-        <input type="date" id="eventDate" required>
-        <input type="text" id="eventVenue" placeholder="Event Venue" required>
-        <input type="number" id="eventCost" placeholder="Estimated Cost ($)" required>
-        <button onclick="addEvent()">Add Event</button>
-        <button onclick="closeEventForm()">Cancel</button>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
