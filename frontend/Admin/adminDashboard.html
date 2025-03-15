@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard | Event Manager</title>
+    <style>
+        body { background-color: #f8f8f8; color: #333; font-family: Arial, sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+        header { background-color: #e63946; color: #fff; padding: 15px 20px; text-align: center; }
+        header button { background-color: #333; color: #fff; border: none; padding: 8px 20px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        main { padding: 20px; }
+        h2, h3 { color: #e63946; }
+        .section { background-color: #fff; border: 2px solid #e63946; border-radius: 10px; padding: 15px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+        #eventList, #reportSection { background-color: #f8f8f8; border: 1px solid #e63946; border-radius: 5px; padding: 10px; }
+        button { background-color: #e63946; color: #fff; border: none; padding: 8px 20px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: background 0.3s ease; }
+        button:hover { background-color: #b52d36; }
+        .event-item { border-bottom: 1px solid #ccc; padding: 10px 0; }
+        .event-controls { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard - Event Manager</h1>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main>
+        <h2>Welcome, Admin</h2>
+
+        <section class="section">
+            <h3>Pending Event Approvals</h3>
+            <div id="eventList">No pending events yet.</div>
+        </section>
+
+        <section class="section" id="reportSection">
+            <h3>Event Report</h3>
+            <div id="reportList">No events created yet.</div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            displayEvents();
+            displayEventReport();
+        });
+
+        function displayEvents() {
+            const eventList = document.getElementById("eventList");
+            const events = JSON.parse(localStorage.getItem("events")) || [];
+
+            eventList.innerHTML = ""; // Clear previous data
+
+            const pendingEvents = events.filter(event => !event.approved);
+
+            if (pendingEvents.length === 0) {
+                eventList.innerHTML = "<p>No pending events available.</p>";
+                return;
+            }
+
+            pendingEvents.forEach((event, index) => {
+                const eventItem = document.createElement("div");
+                eventItem.classList.add("event-item");
+                eventItem.innerHTML = `
+                    <h4>${event.name}</h4>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Venue:</strong> ${event.venue}</p>
+                    <p><strong>Estimated Cost:</strong> ${event.cost}</p>
+                    <div class="event-controls">
+                        <button onclick="approveEvent(${index})">Approve</button>
+                        <button onclick="denyEvent(${index})">Deny</button>
+                    </div>
+                `;
+                eventList.appendChild(eventItem);
+            });
+        }
+
+        function approveEvent(index) {
+            const events = JSON.parse(localStorage.getItem("events")) || [];
+            events[index].approved = true;
+            localStorage.setItem("events", JSON.stringify(events));
+            displayEvents();
+            displayEventReport();
+        }
+
+        function denyEvent(index) {
+            let events = JSON.parse(localStorage.getItem("events")) || [];
+            events.splice(index, 1); // Remove denied event
+            localStorage.setItem("events", JSON.stringify(events));
+            displayEvents();
+        }
+
+        function displayEventReport() {
+            const reportList = document.getElementById("reportList");
+            const events = JSON.parse(localStorage.getItem("events")) || [];
+
+            reportList.innerHTML = "";
+
+            if (events.length === 0) {
+                reportList.innerHTML = "<p>No events created yet.</p>";
+                return;
+            }
+
+            events.forEach(event => {
+                const reportItem = document.createElement("div");
+                reportItem.classList.add("event-item");
+                reportItem.innerHTML = `
+                    <h4>${event.name}</h4>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Venue:</strong> ${event.venue}</p>
+                    <p><strong>Status:</strong> ${event.approved ? "Approved" : "Pending"}</p>
+                `;
+                reportList.appendChild(reportItem);
+            });
+        }
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.clear();
+            window.location.href = "/frontend/login.html"; 
+        });
+    </script>
+</body>
+</html>

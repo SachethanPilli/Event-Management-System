@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard | Event Manager</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #e63946;
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        header button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2, h3 {
+            color: #e63946;
+        }
+
+        #eventSection {
+            background-color: #fff;
+            border: 2px solid #e63946;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-item {
+            background-color: #f8f8f8;
+            border: 1px solid #e63946;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #b52d36;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Dashboard</h1>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main>
+        <h2>Welcome, <span id="usernameDisplay"></span> (<span id="roleDisplay"></span>)</h2>
+
+        <section id="eventSection">
+            <h3>Available Events</h3>
+            <div id="eventList">No upcoming events yet.</div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadUserDetails();
+            displayEvents();
+        });
+
+        function loadUserDetails() {
+            const username = localStorage.getItem("username") || "Guest";
+            const role = localStorage.getItem("role") || "Student";
+
+            document.getElementById("usernameDisplay").textContent = username;
+            document.getElementById("roleDisplay").textContent = role;
+        }
+
+        function displayEvents() {
+            const eventList = document.getElementById("eventList");
+            const events = JSON.parse(localStorage.getItem("events")) || [];
+
+            eventList.innerHTML = ""; 
+
+            if (events.length === 0) {
+                eventList.innerHTML = "<p>No ongoing events available.</p>";
+                return;
+            }
+
+            events.forEach(event => {
+                const eventItem = document.createElement("div");
+                eventItem.classList.add("event-item");
+                eventItem.innerHTML = `
+                    <h4>${event.name}</h4>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Venue:</strong> ${event.venue}</p>
+                    <p><strong>Slots Available:</strong> ${event.slots || "N/A"}</p>
+                    <button onclick="registerEvent('${event.name}')">Register Now</button>
+                `;
+                eventList.appendChild(eventItem);
+            });
+        }
+
+        function registerEvent(eventName) {
+            alert(`Successfully registered for ${eventName}!`);
+        }
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.clear();
+            window.location.href = "/frontend/login.html"; 
+        });
+    </script>
+</body>
+</html>
