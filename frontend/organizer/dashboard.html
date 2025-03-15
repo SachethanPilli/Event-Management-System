@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard | Event Manager</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #e63946;
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        header button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2, h3 {
+            color: #e63946;
+        }
+
+        #eventSection, #organizerControls {
+            background-color: #fff;
+            border: 2px solid #e63946;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #eventList {
+            background-color: #f8f8f8;
+            border: 1px solid #e63946;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        button {
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #b52d36;
+        }
+
+        .popup {
+            background-color: #fff;
+            border: 3px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #e63946;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Event Manager Dashboard</h1>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main>
+        <h2>Welcome, <span id="usernameDisplay"></span> (<span id="roleDisplay"></span>)</h2>
+
+        <section id="eventSection">
+            <h3>Upcoming Events</h3>
+            <div id="eventList">No upcoming events yet.</div>
+        </section>
+
+        <section id="organizerControls" style="display: none;">
+            <h3>Organizer Controls</h3>
+            <button onclick="window.location.href='createEvent.html'">Create New Event</button>
+        </section>
+    </main>
+
+    <div id="eventForm" class="popup" style="display: none;">
+        <h3>Create Event</h3>
+        <input type="text" id="eventName" placeholder="Event Name" required>
+        <input type="date" id="eventDate" required>
+        <input type="text" id="eventVenue" placeholder="Event Venue" required>
+        <input type="number" id="eventCost" placeholder="Estimated Cost ($)" required>
+        <button onclick="addEvent()">Add Event</button>
+        <button onclick="closeEventForm()">Cancel</button>
+    </div>
+
+    <script>document.addEventListener("DOMContentLoaded", () => {
+    loadUserDetails();
+    displayEvents();
+});
+
+// Function to load user details
+function loadUserDetails() {
+    const username = localStorage.getItem("username") || "Guest";
+    const role = localStorage.getItem("role") || "Visitor";
+
+    document.getElementById("usernameDisplay").textContent = username;
+    document.getElementById("roleDisplay").textContent = role;
+
+    if (role === "Organizer") {
+        document.getElementById("organizerControls").style.display = "block";
+    }
+}
+
+// Function to display events
+function displayEvents() {
+    const eventList = document.getElementById("eventList");
+    const events = JSON.parse(localStorage.getItem("events")) || [];
+
+    eventList.innerHTML = ""; // Clear previous data
+
+    if (events.length === 0) {
+        eventList.innerHTML = "<p>No ongoing events available.</p>";
+        return;
+    }
+
+    events.forEach(event => {
+        const eventItem = document.createElement("div");
+        eventItem.classList.add("event-item");
+        eventItem.innerHTML = `
+            <h4>${event.name}</h4>
+            <p><strong>Date:</strong> ${event.date}</p>
+            <p><strong>Venue:</strong> ${event.venue}</p>
+            <p><strong>Estimated Cost:</strong> ${event.cost}</p>
+        `;
+        eventList.appendChild(eventItem);
+    });
+}
+
+// Logout functionality
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = "login.html"; // Redirect to login page
+});</script>
+</body>
+</html>

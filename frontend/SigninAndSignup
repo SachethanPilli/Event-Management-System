@@ -241,19 +241,25 @@
         </div>
     </div>
 
-    <script>
-        const container = document.getElementById('container');
-        const registerBtn = document.getElementById('register');
-        const loginBtn = document.getElementById('login');
+    <script>document.addEventListener("DOMContentLoaded", () => {
+    const signInForm = document.querySelector(".sign-in form");
 
-        registerBtn.addEventListener('click', () => {
-            container.classList.add("active");
-        });
+    signInForm.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-        loginBtn.addEventListener('click', () => {
-            container.classList.remove("active");
-        });
-    </script>
+        const email = signInForm.querySelector("input[type='email']").value.trim();
+        const password = signInForm.querySelector("input[type='password']").value.trim();
+
+        // Dummy check for Organizer Role
+        if (email === "organizer@example.com" && password === "password123") {
+            localStorage.setItem("username", "Organizer User");
+            localStorage.setItem("role", "Organizer");
+            window.location.href = "dashboard.html";
+        } else {
+            alert("Invalid credentials! Use 'organizer@example.com' with password 'password123'.");
+        }
+    });
+});</script>
 </body>
 
 </html>

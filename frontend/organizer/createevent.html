@@ -126,7 +126,7 @@
 <body>
 <!-- Video Background -->
 <video autoplay loop muted playsinline style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; object-fit: cover; z-index: -1;">
-    <source src="fireworks.mp4" type="video/mp4">
+    <source src="_fireworks.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 
@@ -201,37 +201,44 @@
         </form>
     </div>
 
-    <script>
-        document.querySelectorAll('.budget-input').forEach(input => {
-            input.addEventListener('input', updateTotal);
-        });
+   <script>document.getElementById("eventForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-        function updateTotal() {
-            let total = 0;
-            document.querySelectorAll('.budget-input').forEach(input => {
-                total += parseFloat(input.value) || 0;
-            });
-            document.getElementById('totalBudget').innerText = "Total: ₹ " + total;
-        }
+    const eventName = document.getElementById("eventName").value.trim();
+    const eventDate = document.getElementById("eventDate").value.trim();
+    const venue = document.getElementById("venue").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const maxStudents = document.getElementById("maxStudents").value.trim();
 
-        // Progress Bar Update
-        const formFields = document.querySelectorAll("#eventForm input, #eventForm textarea");
-        const progressBar = document.getElementById("progressBar");
+    const budgetInputs = document.querySelectorAll(".budget-input");
+    let totalBudget = 0;
 
-        formFields.forEach(field => {
-            field.addEventListener("input", updateProgress);
-        });
+    budgetInputs.forEach(input => {
+        totalBudget += parseFloat(input.value) || 0;
+    });
 
-        function updateProgress() {
-            let filled = 0;
-            formFields.forEach(field => {
-                if (field.value.trim() !== "") filled++;
-            });
+    if (!eventName || !eventDate || !venue || !description || !maxStudents) {
+        alert("Please fill all required fields.");
+        return;
+    }
 
-            let progress = (filled / formFields.length) * 100;
-            progressBar.style.width = progress + "%";
-        }
-    </script>
+    const newEvent = {
+        name: eventName,
+        date: eventDate,
+        venue,
+        description,
+        maxStudents,
+        cost: `₹${totalBudget}`
+    };
+
+    const events = JSON.parse(localStorage.getItem("events")) || [];
+    events.push(newEvent);
+    localStorage.setItem("events", JSON.stringify(events));
+
+    alert("Event created successfully!");
+    window.location.href = "dashboard.html"; // Redirect back to the dashboard
+});
+</script>
 
 </body>
 </html>
