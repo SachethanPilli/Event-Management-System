@@ -47,3 +47,4 @@ ALTER TABLE registrations
 ADD COLUMN status ENUM('registered', 'cancelled') NOT NULL DEFAULT 'registered';
 
 insert into users (name,email,password,id,role) values ('Sukesh Rakshit','sukeshrakshit@mahindrauniversity.edu.in','$2b$10$eeAtnc6RaAW1aoXgzv0ff.sp6nqdukX9KZgBhpZvI/bNJDus4XYXC','2','admin');
+ALTER TABLE events ADD COLUMN rejection_reason VARCHAR(255) DEFAULT NULL;
