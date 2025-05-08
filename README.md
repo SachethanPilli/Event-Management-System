@@ -7,7 +7,7 @@
 ### **Overview**
 
 The **Event Management System** is a web-based application designed to automate and streamline the management of university events. The system facilitates event creation, registration, venue booking, expense tracking, and real-time updates, offering a centralized platform for **Admins**, **Organizers**, and **Students** to efficiently manage campus events.
-
+**Note** : we have taken Mahindra University into consideration for building this website.
 ---
 
 ### **Features**:
