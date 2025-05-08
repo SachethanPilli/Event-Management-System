@@ -16,8 +16,8 @@ The **Event Management System** is a web-based application designed to automate 
 
    * Approve or reject events.
    * Manage users (Admins, Organizers, Students).
-   * View and generate event reports.
-   * Track event expenses and manage budgets.
+   * View event reports.
+     
 
 2. **Organizer Features**:
 
@@ -29,7 +29,7 @@ The **Event Management System** is a web-based application designed to automate 
 
    * Register for events and view event details.
    * Cancel event registrations.
-   * Receive notifications about event updates.
+   * Can view registered events and all the ongoing event details.
 
 ---
 
