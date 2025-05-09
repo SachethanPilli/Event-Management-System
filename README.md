@@ -28,7 +28,7 @@ The **Event Management System** is a web-based application designed to automate 
    - [Statement of Work.pdf](./Statement%20of%20Work.pdf)  
    - [User Persona_SE.docx](./User%20Persona_SE.docx)  
    - [setup_doc.pdf](./setup_doc.pdf) - Setup Instructions  
-4. [Database Schema](./DatabaseSchema)  
+4. [Database Schema](./Database%20Schema)  
 5. [README](./README.md)
 6. Test plan
 
