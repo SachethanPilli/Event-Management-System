@@ -12,6 +12,9 @@ The **Event Management System** is a web-based application designed to automate 
 
  **links for the videos containing demo,presentation and setup** :
  https://youtube.com/playlist?list=PLOWb0SB7frTZzj2oNy3MZeZN6lcWv2VRS&si=v-BoHpJUhfRID3sp
+
+ **link for the presentation** :
+ https://www.canva.com/design/DAGmx_2-IfY/lbbXpK6sPJvRBggiljhmBg/edit?utm_content=DAGmx_2-IfY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
  
 ---
 ## 📚 Table of Contents
