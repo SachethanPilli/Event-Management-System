@@ -10,7 +10,7 @@ The **Event Management System** is a web-based application designed to automate 
 
  **Note**  :  we have taken Mahindra University into consideration for building this website.
 
- **links for the videos** :
+ **links for the videos containing demo,presentation and setup** :
  https://youtube.com/playlist?list=PLOWb0SB7frTZzj2oNy3MZeZN6lcWv2VRS&si=v-BoHpJUhfRID3sp
  
 ---
